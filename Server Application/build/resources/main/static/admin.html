@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+<div class="container">
+    <table class="table table-stripped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Report</th>
+            <th>location</th>
+        </tr>
+        </thead>
+        <tbody id="data">
+
+        </tbody>
+    </table>
+</div>
+<script>
+            fetch("http://localhost:9000/view/all-reports").then(
+                res=>{
+                    res.json().then(
+                        data=>{
+                            console.log(data)
+                            if(data.length>0){
+                                var temp="";
+                                data.forEach((u)=>{
+                                    temp+="<tr>";
+                                    temp+="<td>"+u.id+"</td>";
+                                    temp+="<td>"+u.reportName+"</td>";
+                                    temp+="<td>"+u.reportContent+"</td>";
+                                    temp+="<td>"+u.location+"</td></tr>";                                })
+                                document.getElementById("data").innerHTML=temp;
+                            }
+                        }
+                    )
+                }
+            )
+</script>
+</body>
+</html>
